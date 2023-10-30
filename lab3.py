@@ -13,14 +13,15 @@ class StrictAlternationSimulator:
         self.process1_in_critical = False
 
         self.label_process0 = tk.Label(self.root, text="Process 0: Not in critical region")
+        self.label_process0.pack()
+
         self.label_process1 = tk.Label(self.root, text="Process 1: Not in critical region")
+        self.label_process1.pack()
 
         self.start_button = tk.Button(self.root, text="Start Simulation", command=self.start_simulation)
-        self.stop_button = tk.Button(self.root, text="Stop Simulation", command=self.stop_simulation)
-
-        self.label_process0.pack()
-        self.label_process1.pack()
         self.start_button.pack()
+
+        self.stop_button = tk.Button(self.root, text="Stop Simulation", command=self.stop_simulation)
         self.stop_button.pack()
 
         self.process0_thread = threading.Thread(target=self.process0)
@@ -61,21 +62,15 @@ class StrictAlternationSimulator:
             self.noncritical_region(1)
 
     def critical_region(self, process_id):
-        # Моделирование критической области
         if process_id == 0:
-            print("Process 0 entered critical region")
             time.sleep(2)
         else:
-            print("Process 1 entered critical region")
             time.sleep(2)
 
     def noncritical_region(self, process_id):
-        # Моделирование области вне критической области
         if process_id == 0:
-            print("Process 0 exited critical region")
             time.sleep(1)
         else:
-            print("Process 1 exited critical region")
             time.sleep(1)
 
     def update_labels(self):

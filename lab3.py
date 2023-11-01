@@ -6,6 +6,40 @@ import time
 running = False
 
 
+def square(a):
+    return a**2
+
+
+def factor(a):
+    if a == 1:
+        return 1
+    else:
+        return a * factor(a - 1)
+
+
+def get_ascii(symbol):
+    return ord(symbol)
+
+
+def get_symbol(symbol):
+    return dir(ord(symbol) + 2)
+
+
+def get_sound(a):
+    return 'beep' * a
+
+
+def num_to_x(string):
+    nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    new_str = ''
+    for i in string:
+        if i in nums:
+            new_str += 'x'
+        else:
+            new_str += i
+    return new_str
+
+
 def critical_region(process_id):
     if process_id == 0:
         time.sleep(2)
@@ -103,7 +137,7 @@ class Peterson:
         self.title = "Peterson Algorithm Simulation"
 
         self.turn = 0
-        self.interested = [False for i in range(self.N)]
+        self.interested = [False for _ in range(self.N)]
 
         self.process0_thread = threading.Thread(target=self.process, args=(0,))
         self.process1_thread = threading.Thread(target=self.process, args=(1,))

@@ -65,11 +65,11 @@ class View:
 
         self.process = process
 
-        self.label_process0 = tk.Label(self.root, text="Process 0: Not in critical region")
-        self.label_process1 = tk.Label(self.root, text="Process 1: Not in critical region")
+        self.label_process0 = tk.Label(self.root, text="Process 0: Not in critical region", font=("Arial", 12))
+        self.label_process1 = tk.Label(self.root, text="Process 1: Not in critical region", font=("Arial", 12))
 
-        self.start_button = tk.Button(self.root, text="Start Simulation", command=self.start_simulation)
-        self.stop_button = tk.Button(self.root, text="Stop Simulation", command=self.stop_simulation)
+        self.start_button = tk.Button(self.root, text="Start Simulation", font=("Arial", 12), command=self.start_simulation)
+        self.stop_button = tk.Button(self.root, text="Stop Simulation", font=("Arial", 12), command=self.stop_simulation)
 
         self.label_process0.pack()
         self.label_process1.pack()
@@ -146,7 +146,7 @@ class Peterson:
         self.view.run()
 
     def process(self, process_id):
-        while True:
+        while running:
             self.enter_region(process_id)
             if process_id == 0:
                 self.view.process0_in_critical = True

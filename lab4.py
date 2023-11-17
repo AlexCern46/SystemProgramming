@@ -10,7 +10,7 @@ NUM_PHILOSOPHERS = 5
 class View:
     def __init__(self, root):
         self.root = root
-        self.root.title('Dining philosophers', )
+        self.root.title('Dining philosophers')
         self.root.geometry('500x350')
         self.root.resizable(False, False)
 

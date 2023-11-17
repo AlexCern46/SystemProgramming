@@ -139,28 +139,33 @@ class Peterson:
         self.turn = 0
         self.interested = [False for _ in range(self.N)]
 
-        self.process0_thread = threading.Thread(target=self.process, args=(0,))
-        self.process1_thread = threading.Thread(target=self.process, args=(1,))
+        self.process0_thread = threading.Thread(target=self.process1)
+        self.process1_thread = threading.Thread(target=self.process2)
 
         self.view = View(self)
         self.view.run()
 
-    def process(self, process_id):
+    def process1(self):
         while running:
-            self.enter_region(process_id)
-            if process_id == 0:
-                self.view.process0_in_critical = True
-            else:
-                self.view.process1_in_critical = True
+            self.enter_region(0)
+            self.view.process0_in_critical = True
             self.view.update_labels()
-            critical_region(process_id)
-            self.leave_region(process_id)
-            if process_id == 0:
-                self.view.process0_in_critical = False
-            else:
-                self.view.process1_in_critical = False
+            critical_region(0)
+            self.leave_region(0)
+            self.view.process0_in_critical = False
             self.view.update_labels()
-            noncritical_region(process_id)
+            noncritical_region(0)
+
+    def process2(self):
+        while running:
+            self.enter_region(1)
+            self.view.process1_in_critical = True
+            self.view.update_labels()
+            critical_region(1)
+            self.leave_region(1)
+            self.view.process1_in_critical = False
+            self.view.update_labels()
+            noncritical_region(1)
 
     def enter_region(self, process):
         other = 1 - process

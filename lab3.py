@@ -6,15 +6,15 @@ import time
 running = False
 
 
-def square(a):
+def get_square(a):
     return a**2
 
 
-def factor(a):
+def get_factor(a):
     if a == 1:
         return 1
     else:
-        return a * factor(a - 1)
+        return a * get_factor(a - 1)
 
 
 def get_ascii(symbol):
@@ -118,7 +118,7 @@ class StrictAlternation:
             while self.view.turn != 0:
                 pass
             self.view.process0_in_critical = True
-            self.view.update_labels(square(int(self.view.entry1.get())))
+            self.view.update_labels(get_square(int(self.view.entry1.get())))
             critical_region()
             self.view.turn = 1
             self.view.process0_in_critical = False
@@ -156,7 +156,7 @@ class Peterson:
         while running:
             self.enter_region(0)
             self.view.process0_in_critical = True
-            self.view.update_labels(square(int(self.view.entry1.get())))
+            self.view.update_labels(get_square(int(self.view.entry1.get())))
             critical_region()
             self.leave_region(0)
             self.view.process0_in_critical = False

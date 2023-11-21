@@ -40,12 +40,18 @@ def num_to_x(string):
     return new_str
 
 
-def critical_region():
-    time.sleep(2)
+def critical_region(process):
+    if process == 0:
+        time.sleep(2)
+    else:
+        time.sleep(2)
 
 
-def noncritical_region():
-    time.sleep(1)
+def noncritical_region(process):
+    if process == 0:
+        time.sleep(1)
+    else:
+        time.sleep(1)
 
 
 class View:
@@ -119,11 +125,11 @@ class StrictAlternation:
                 pass
             self.view.process0_in_critical = True
             self.view.update_labels(get_square(int(self.view.entry1.get())))
-            critical_region()
+            critical_region(0)
             self.view.turn = 1
             self.view.process0_in_critical = False
             self.view.update_labels(None)
-            noncritical_region()
+            noncritical_region(0)
 
     def process1(self):
         while running:
@@ -131,11 +137,11 @@ class StrictAlternation:
                 pass
             self.view.process1_in_critical = True
             self.view.update_labels(get_ascii(self.view.entry2.get()[0]))
-            critical_region()
+            critical_region(1)
             self.view.turn = 0
             self.view.process1_in_critical = False
             self.view.update_labels(None)
-            noncritical_region()
+            noncritical_region(1)
 
 
 class Peterson:
@@ -157,22 +163,22 @@ class Peterson:
             self.enter_region(0)
             self.view.process0_in_critical = True
             self.view.update_labels(get_square(int(self.view.entry1.get())))
-            critical_region()
+            critical_region(0)
             self.leave_region(0)
             self.view.process0_in_critical = False
             self.view.update_labels(None)
-            noncritical_region()
+            noncritical_region(0)
 
     def process1(self):
         while running:
             self.enter_region(1)
             self.view.process1_in_critical = True
             self.view.update_labels(get_ascii(self.view.entry2.get()[0]))
-            critical_region()
+            critical_region(1)
             self.leave_region(1)
             self.view.process1_in_critical = False
             self.view.update_labels(None)
-            noncritical_region()
+            noncritical_region(1)
 
     def enter_region(self, process):
         other = 1 - process

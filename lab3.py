@@ -22,7 +22,7 @@ def get_ascii(symbol):
 
 
 def get_symbol(symbol):
-    return dir(ord(symbol) + 2)
+    return chr(ord(symbol) + 2)
 
 
 def get_sound(a):

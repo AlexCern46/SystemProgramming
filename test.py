@@ -1,7 +1,8 @@
 import random
-import numpy
+import numpy as np
 import threading
-import tkinter
+import tkinter as tk
+from tkinter import ttk
 import time
 import math
 
